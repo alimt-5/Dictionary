@@ -6,8 +6,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.*
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -33,7 +40,7 @@ class MainActivity : ComponentActivity() {
 
                 LaunchedEffect(key1 = true) {
                     viewModel.eventFlow.collectLatest { event ->
-                        when(event) {
+                        when (event) {
                             is WordInfoViewModel.UIEvent.ShowSnackBar -> {
                                 scaffoldState.snackbarHostState.showSnackbar(
                                     message = event.message
@@ -68,18 +75,22 @@ class MainActivity : ComponentActivity() {
                             ) {
                                 items(state.wordInfoItems.size) { i ->
                                     val wordInfo = state.wordInfoItems[i]
-                                    if(i > 0) {
+                                    if (i > 0) {
                                         Spacer(modifier = Modifier.height(8.dp))
                                     }
                                     WordInfoItem(wordInfo = wordInfo)
-                                    if(i < state.wordInfoItems.size - 1) {
+                                    if (i < state.wordInfoItems.size - 1) {
                                         Divider()
                                     }
                                 }
                             }
                         }
-                        if(state.isLoading) {
-                            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                        if (state.isLoading) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.align(
+                                    Alignment.Center
+                                )
+                            )
                         }
                     }
                 }
