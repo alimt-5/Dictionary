@@ -81,6 +81,7 @@ class MainActivity : ComponentActivity() {
                                     WordInfoItem(wordInfo = wordInfo)
                                     if (i < state.wordInfoItems.size - 1) {
                                         Divider()
+
                                     }
                                 }
                             }
