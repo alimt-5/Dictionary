@@ -1,4 +1,4 @@
-Here's a comprehensive English README for your repository based on my analysis of the code:
+<img width="677" height="1280" alt="Word Details" src="https://github.com/user-attachments/assets/f27d3fcf-a43e-4e3a-963e-af6da961f56d" />Here's a comprehensive English README for your repository based on my analysis of the code:
 
 ---
 
@@ -43,7 +43,7 @@ A modern, offline-capable Android dictionary application built with **Kotlin** a
 
 | Word Details |
 |---------------|
-|  |
+|<img width="677" height="1280" alt="Word Details" src="https://github.com/user-attachments/assets/7d6f108d-2ad9-4021-9c83-775a1f07c335" /> |
 
 ---
 
