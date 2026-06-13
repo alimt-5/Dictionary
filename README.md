@@ -1,3 +1,5 @@
+Here's a comprehensive English README for your repository based on my analysis of the code:
+
 ---
 
 # 📖 Dictionary App
@@ -41,7 +43,7 @@ A modern, offline-capable Android dictionary application built with **Kotlin** a
 
 | Word Details |
 |---------------|
-|<img width="677" height="1280" alt="Word Details" src="https://github.com/user-attachments/assets/7d6f108d-2ad9-4021-9c83-775a1f07c335" /> |
+| <img width="677" height="1280" alt="Word Details" src="https://github.com/user-attachments/assets/0978b354-5750-402c-b2c3-3bdf5a27e7da" />|
 
 ---
 
