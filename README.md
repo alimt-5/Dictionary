@@ -41,9 +41,9 @@ A modern, offline-capable Android dictionary application built with **Kotlin** a
 
 ## 📸 Screenshots
 
-| Search Screen | Word Details |
-|---------------|---------------|
-| *(Add your screenshots here)* | *(Add your screenshots here)* |
+| Word Details |
+|---------------|
+|  |
 
 ---
 
