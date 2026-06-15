@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Dictionary</string>
+    <string name="error_playing_sound">Error Playing Sound!</string>
+    <string name="error_loading_sound">Error Loading Sound!</string>
+    <string name="pronunciation">Pronunciation</string>
+    <string name="example">Example:</string>
+    <string name="search">Search</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.example.dictionary.feature_dictionary.presentation
 
-//noinspection UsingMaterialAndMaterial3Libraries
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,29 +9,28 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Divider
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Scaffold
-import androidx.compose.material.ScaffoldState
-import androidx.compose.material.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.dictionary.R
 
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun WordInfoContent(
     state: WordInfoState,
     searchQuery: String,
     onSearch: (String) -> Unit,
-    scaffoldState: ScaffoldState
+    snackBarHostState: SnackbarHostState
 ) {
 
     Scaffold(
-        scaffoldState = scaffoldState
+        snackbarHost = {
+            SnackbarHost(hostState = snackBarHostState)
+        }
     ) {
         Box {
             Column(
@@ -45,7 +43,7 @@ fun WordInfoContent(
                     onValueChange = onSearch,
                     modifier = Modifier.fillMaxWidth(),
                     label = {
-                        Text(text = "Search")
+                        Text(text = stringResource(R.string.search))
                     }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
@@ -59,7 +57,7 @@ fun WordInfoContent(
                         }
                         WordInfoItem(wordInfo = wordInfo)
                         if (i < state.wordInfoItems.size - 1) {
-                            Divider()
+                            HorizontalDivider()
 
                         }
                     }
