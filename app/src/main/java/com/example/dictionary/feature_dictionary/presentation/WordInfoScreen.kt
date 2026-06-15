@@ -1,7 +1,7 @@
 package com.example.dictionary.feature_dictionary.presentation
 
 import android.annotation.SuppressLint
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -12,15 +12,13 @@ import kotlinx.coroutines.flow.collectLatest
 fun WordInfoScreen() {
     val viewModel: WordInfoViewModel = hiltViewModel()
     val state = viewModel.state.value
-    val scaffoldState = rememberScaffoldState()
+    val snackBarHostState = SnackbarHostState()
 
-    LaunchedEffect(key1 = true) {
+    LaunchedEffect(Unit) {
         viewModel.eventFlow.collectLatest { event ->
             when (event) {
                 is WordInfoViewModel.UIEvent.ShowSnackBar -> {
-                    scaffoldState.snackbarHostState.showSnackbar(
-                        message = event.message
-                    )
+                    snackBarHostState.showSnackbar(event.message)
                 }
             }
         }
@@ -29,7 +27,7 @@ fun WordInfoScreen() {
             state,
             viewModel.searchQuery.value,
             viewModel::onSearch,
-            scaffoldState
+            snackBarHostState
         )
 
 
