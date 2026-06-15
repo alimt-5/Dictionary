@@ -7,11 +7,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -20,11 +21,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.dictionary.R
 import com.example.dictionary.feature_dictionary.domain.model.WordInfo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -64,13 +66,21 @@ fun WordInfoItem(
                 }
                 player.setOnErrorListener { _, _, _ ->
                     isLoading = false
-                    Toast.makeText(context, "Error Playing Sound!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.error_playing_sound),
+                        Toast.LENGTH_SHORT
+                    ).show()
                     true
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
                 isLoading = false
-                Toast.makeText(context, "Error Loading Sound! ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.error_loading_sound) + " ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -87,22 +97,28 @@ fun WordInfoItem(
                 text = wordInfo.word,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black
+                color = MaterialTheme.colorScheme.onSurface
             )
             Spacer(Modifier.weight(1f))
-            wordInfo.audioUrl?.takeIf { it.isNotBlank() }.let { url ->
-                if (isLoading) {
-                    CircularProgressIndicator()
-                } else {
-                    IconButton(onClick = {
-                        if (url != null) {
-                            playAudio(url)
+            wordInfo.audioUrl
+                ?.takeIf { it.isNotBlank() }
+                ?.let { url ->
+
+                    if (isLoading) {
+                        CircularProgressIndicator()
+                    } else {
+                        IconButton(
+                            onClick = {
+                                playAudio(url)
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.PlayArrow,
+                                contentDescription = stringResource(R.string.pronunciation)
+                            )
                         }
-                    }) {
-                        Icon(Icons.Default.PlayArrow, contentDescription = "Pronunciation")
                     }
                 }
-            }
         }
 
         wordInfo.phonetic?.let { Text(text = it, fontWeight = FontWeight.Light) }
@@ -115,7 +131,7 @@ fun WordInfoItem(
                 Text(text = "${i + 1}. ${definition.definition}")
                 Spacer(modifier = Modifier.height(8.dp))
                 definition.example?.let { example ->
-                    Text(text = "Example: $example")
+                    Text(text = "${stringResource(R.string.example)} $example")
                 }
                 Spacer(modifier = Modifier.height(8.dp))
             }
