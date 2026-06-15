@@ -3,6 +3,7 @@ package com.example.dictionary.feature_dictionary.di
 import android.app.Application
 import androidx.room.Room
 import com.example.dictionary.feature_dictionary.data.local.Converters
+import com.example.dictionary.feature_dictionary.data.local.MIGRATION_3_4
 import com.example.dictionary.feature_dictionary.data.local.WordInfoDatabase
 import com.example.dictionary.feature_dictionary.data.remote.DictionaryApi
 import com.example.dictionary.feature_dictionary.data.repository.WordInfoRepositoryImpl
@@ -41,9 +42,16 @@ object WordInfoModule {
     @Singleton
     fun provideWordInfoDatabase(app: Application): WordInfoDatabase {
         return Room.databaseBuilder(
-            app, WordInfoDatabase::class.java, "word_db"
-        ).addTypeConverter(Converters(GsonParser(Gson())))
-            .fallbackToDestructiveMigration()
+            app,
+            WordInfoDatabase::class.java,
+            "word_db"
+        )
+            .addTypeConverter(
+                Converters(
+                    GsonParser(Gson())
+                )
+            )
+            .addMigrations(MIGRATION_3_4)
             .build()
     }
 

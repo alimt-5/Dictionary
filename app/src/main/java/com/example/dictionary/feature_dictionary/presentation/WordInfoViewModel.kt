@@ -2,8 +2,10 @@ package com.example.dictionary.feature_dictionary.presentation
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.dictionary.R
 import com.example.dictionary.core.util.Resource
 import com.example.dictionary.feature_dictionary.domain.use_case.GetWordInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -51,9 +53,11 @@ class WordInfoViewModel @Inject constructor(
                                 wordInfoItems = result.data ?: emptyList(),
                                 isLoading = false
                             )
-                            _eventFlow.emit(UIEvent.ShowSnackBar(
-                                result.message ?: "Unknown error"
-                            ))
+                            _eventFlow.emit(
+                                UIEvent.ShowSnackBar(
+                                    result.message ?:"Unknown error"
+                                )
+                            )
                         }
                         is Resource.Loading -> {
                             _state.value = state.value.copy(

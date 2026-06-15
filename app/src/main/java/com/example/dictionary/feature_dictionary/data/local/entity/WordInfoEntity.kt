@@ -18,8 +18,9 @@ data class WordInfoEntity(
             meanings = meanings,
             word = word,
             origin = origin ?: "",
-            phonetic = phonetic,
+            phonetic = phonetic ?: "",
             audioUrl = audioUrl
         )
     }
 }
+
