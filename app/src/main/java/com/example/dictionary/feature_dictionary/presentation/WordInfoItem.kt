@@ -28,10 +28,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.dictionary.R
 import com.example.dictionary.feature_dictionary.domain.model.WordInfo
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.Dispatchers
 
 @Composable
 fun WordInfoItem(
@@ -39,6 +39,7 @@ fun WordInfoItem(
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
 
     var isLoading by remember { mutableStateOf(false) }
     var mediaPlayer: MediaPlayer? = remember { null }
@@ -47,7 +48,7 @@ fun WordInfoItem(
         if (isLoading) return
         isLoading = true
 
-        CoroutineScope(Dispatchers.Main).launch {
+        scope.launch {
             try {
                 val player = withContext(Dispatchers.IO) {
                     MediaPlayer().apply {
@@ -55,15 +56,18 @@ fun WordInfoItem(
                         prepare()
                     }
                 }
+
                 mediaPlayer?.release()
                 mediaPlayer = player
+
                 player.start()
                 isLoading = false
-                player.setOnCompletionListener {
 
+                player.setOnCompletionListener {
                     player.release()
                     mediaPlayer = null
                 }
+
                 player.setOnErrorListener { _, _, _ ->
                     isLoading = false
                     Toast.makeText(
@@ -73,9 +77,11 @@ fun WordInfoItem(
                     ).show()
                     true
                 }
+
             } catch (e: Exception) {
                 e.printStackTrace()
                 isLoading = false
+
                 Toast.makeText(
                     context,
                     context.getString(R.string.error_loading_sound) + " ${e.message}",
@@ -88,6 +94,7 @@ fun WordInfoItem(
     DisposableEffect(Unit) {
         onDispose {
             mediaPlayer?.release()
+            mediaPlayer = null
         }
     }
 
