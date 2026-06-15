@@ -19,6 +19,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -28,10 +29,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.dictionary.R
 import com.example.dictionary.feature_dictionary.domain.model.WordInfo
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import androidx.compose.runtime.rememberCoroutineScope
-import kotlinx.coroutines.Dispatchers
 
 @Composable
 fun WordInfoItem(
@@ -56,18 +56,14 @@ fun WordInfoItem(
                         prepare()
                     }
                 }
-
                 mediaPlayer?.release()
                 mediaPlayer = player
-
                 player.start()
                 isLoading = false
-
                 player.setOnCompletionListener {
                     player.release()
                     mediaPlayer = null
                 }
-
                 player.setOnErrorListener { _, _, _ ->
                     isLoading = false
                     Toast.makeText(
@@ -77,11 +73,9 @@ fun WordInfoItem(
                     ).show()
                     true
                 }
-
             } catch (e: Exception) {
                 e.printStackTrace()
                 isLoading = false
-
                 Toast.makeText(
                     context,
                     context.getString(R.string.error_loading_sound) + " ${e.message}",
