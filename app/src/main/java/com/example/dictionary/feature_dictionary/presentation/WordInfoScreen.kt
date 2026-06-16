@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 
@@ -12,7 +13,7 @@ import kotlinx.coroutines.flow.collectLatest
 fun WordInfoScreen() {
     val viewModel: WordInfoViewModel = hiltViewModel()
     val state = viewModel.state.value
-    val snackBarHostState = SnackbarHostState()
+    val snackBarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(Unit) {
         viewModel.eventFlow.collectLatest { event ->

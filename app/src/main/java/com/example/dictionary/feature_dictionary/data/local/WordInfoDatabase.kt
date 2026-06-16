@@ -13,7 +13,7 @@ import com.example.dictionary.feature_dictionary.data.local.entity.WordInfoEntit
     exportSchema = false
 )
 @TypeConverters(Converters::class)
-abstract class WordInfoDatabase: RoomDatabase() {
+abstract class WordInfoDatabase : RoomDatabase() {
 
     abstract val dao: WordInfoDao
 }
