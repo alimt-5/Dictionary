@@ -9,12 +9,12 @@ import com.example.dictionary.feature_dictionary.data.local.entity.WordInfoEntit
 @Dao
 interface WordInfoDao {
 
+    @Query("SELECT * FROM word_info WHERE word LIKE :query || '%' ORDER BY word")
+    suspend fun getWordsStartingWith(query: String): List<WordInfoEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertWordInfos(infos: List<WordInfoEntity>)
+    suspend fun upsert(words: List<WordInfoEntity>)
 
-    @Query("DELETE FROM wordinfoentity WHERE word IN(:words)")
-    suspend fun deleteWordInfos(words: List<String>)
-
-    @Query("SELECT * FROM wordinfoentity WHERE word LIKE :word || '%'")
-    suspend fun getWordInfos(word: String): List<WordInfoEntity>
+    @Query("DELETE FROM word_info WHERE word IN (:words)")
+    suspend fun deleteByWords(words: List<String>)
 }

@@ -1,9 +1,17 @@
 package com.example.dictionary.core.util
-import androidx.annotation.StringRes
-typealias SimpleResource = Resource<Unit>
 
-sealed class Resource<T>(val data: T? = null, val message: String? = null) {
-    class Loading<T>(data: T? = null): Resource<T>(data)
-    class Success<T>(data: T?): Resource<T>(data)
-    class Error<T>(message: String, data: T? = null): Resource<T>(data, message)
+import com.example.dictionary.core.error.DataError
+
+sealed interface Resource<out T> {
+
+    data object Loading : Resource<Nothing>
+
+    data class Success<T>(
+        val data: T
+    ) : Resource<T>
+
+    data class Error<T>(
+        val error: DataError,
+        val data: T? = null
+    ) : Resource<T>
 }

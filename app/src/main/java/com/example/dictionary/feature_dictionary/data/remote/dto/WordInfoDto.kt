@@ -1,23 +1,29 @@
 package com.example.dictionary.feature_dictionary.data.remote.dto
 
-import com.example.dictionary.feature_dictionary.data.local.entity.WordInfoEntity
-
+import com.google.gson.annotations.SerializedName
 
 data class WordInfoDto(
-    val meanings: List<MeaningDto>,
-    val origin: String,
-    val phonetic: String,
-    val phonetics: List<PhoneticDto>,
-    val word: String
-) {
-    fun toWordInfoEntity(): WordInfoEntity {
-        val audioUrl = phonetics.firstOrNull { !it.audio.isNullOrBlank() }?.audio
-        return WordInfoEntity(
-            meanings = meanings.map { it.toMeaning() },
-            origin = origin,
-            phonetic = phonetic,
-            word = word,
-            audioUrl = audioUrl
-        )
-    }
-}
+    val word: String = "",
+    val origin: String? = null,
+    val phonetic: String? = null,
+    val phonetics: List<PhoneticDto> = emptyList(),
+    val meanings: List<MeaningDto> = emptyList()
+)
+
+data class PhoneticDto(
+    val text: String? = null,
+    val audio: String? = null
+)
+
+data class MeaningDto(
+    @SerializedName("partOfSpeech")
+    val partOfSpeech: String = "",
+    val definitions: List<DefinitionDto> = emptyList()
+)
+
+data class DefinitionDto(
+    val definition: String = "",
+    val example: String? = null,
+    val synonyms: List<String> = emptyList(),
+    val antonyms: List<String> = emptyList()
+)
