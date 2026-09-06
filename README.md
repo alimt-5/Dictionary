@@ -110,7 +110,7 @@ The project includes unit tests for `SearchWordUseCase`, including query normali
 Clone the repository and open it in **Android Studio**.
 
 ```bash
-git clone <YOUR_REPOSITORY_URL>
+git clone https://github.com/alimt-5/Dictionary.git
 ```
 
 Then sync Gradle and run the `app` module on an Android device or emulator.
